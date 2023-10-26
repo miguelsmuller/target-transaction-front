@@ -10,6 +10,7 @@
     "stringham.move-ts",
     "segerdekort.angular-cli",
     "johnpapa.Angular2",
-    "dbaeumer.vscode-eslint"
+    "dbaeumer.vscode-eslint",
+    "cyrilletuzi.angular-schematics"
   ]
 }
