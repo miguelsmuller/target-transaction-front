@@ -1,0 +1,28 @@
+<div class="list-product">
+
+  <div class="action-product">
+    <button mat-flat-button color="primary">Nova Transação</button>
+    <button mat-flat-button color="primary">
+        <mat-icon class="mat-icon-button">cached</mat-icon>
+    </button>
+  </div>
+
+  <div class="filter-product">
+    <mat-form-field>
+      <mat-label>Filtro de Período</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Start date">
+        <input matEndDate placeholder="End date">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+  </div>
+
+  <app-list-transactions [transactions]="transactions"></app-list-transactions>
+
+</div>
+
+<div class="content-product">
+  <app-form-transactions></app-form-transactions>
+</div>

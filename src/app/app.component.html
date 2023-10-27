@@ -1,1 +1,15 @@
-<app-page-home></app-page-home>
+<mat-toolbar color="primary" class="header">
+  <button mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <app-header></app-header>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <app-transactions></app-transactions>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<app-footer></app-footer>

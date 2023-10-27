@@ -1,0 +1,40 @@
+<form [formGroup]="transactionForm">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Form</mat-card-title>
+      <mat-card-subtitle>Description</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-form-field appearance="fill">
+        <input matInput formControlName="id" placeholder="Transaction ID" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Descrição</mat-label>
+        <input matInput formControlName="descricao" placeholder="Descrição da transação" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Data</mat-label>
+        <input matInput [matDatepicker]="transactionDate" formControlName="data" />
+        <mat-datepicker-toggle matSuffix [for]="transactionDate"></mat-datepicker-toggle>
+        <mat-datepicker #transactionDate></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Valor</mat-label>
+        <input matInput formControlName="valor" placeholder="Valor da transação" />
+      </mat-form-field>
+
+      <mat-checkbox formControlName="avulso">Transação Avulsa</mat-checkbox>
+
+      <mat-checkbox formControlName="status">Transação Ativa</mat-checkbox>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-flat-button color="primary" type="submit">Submit</button>
+      <button mat-stroked-button color="warn">Excluir</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
