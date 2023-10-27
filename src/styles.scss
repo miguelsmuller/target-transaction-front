@@ -1,4 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+$default-palette: mat.$deep-purple-palette;
+
+*{
+  box-sizing: border-box;
+}
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  padding:0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.2506px;
+}
