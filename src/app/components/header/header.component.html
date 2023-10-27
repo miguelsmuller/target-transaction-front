@@ -1,1 +1,19 @@
-<p>header works!</p>
+<h2>Target Sistemas</h2>
+
+<div class="navigation">
+  <button mat-button>Item 1</button>
+  <button mat-button>Item 2</button>
+
+  <span class="spacer"></span>
+
+  <button mat-button>Item 3</button>
+  <button mat-button>Item 4</button>
+
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>Item 5</button>
+  </mat-menu>
+</div>

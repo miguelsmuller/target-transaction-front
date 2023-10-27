@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-
+import { Transaction } from '../../models/transaction.interface';
+import { TransactionState } from "../../services/transaction.state";
 
 @Component({
   selector: 'app-list-transactions',
@@ -8,9 +9,18 @@ import { Component, Input } from '@angular/core';
 })
 export class ListTransactionsComponent  {
 
-  @Input() transactions: any[] = [];
+  transactions: Transaction[] = [];
+  selectedTransaction: Transaction | null = null;
+
+  constructor(private transactionState: TransactionState) { }
 
   ngOnInit() {
+    this.transactionState.transactions$.subscribe(transactions => {
+      this.transactions = transactions;
+    });
+  }
 
+  onSelectTransaction(transaction: Transaction) {
+    this.transactionState.updateSelectedTransaction(transaction);
   }
 }

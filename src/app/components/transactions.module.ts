@@ -23,8 +23,6 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
   exports:[
     TransactionsComponent
   ],
-  providers: [
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { subscriptSizing: 'dynamic' } }
-  ]
+  providers: []
 })
 export class PageHomeModule { }

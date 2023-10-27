@@ -1,5 +1,5 @@
 <mat-action-list>
-  <mat-list-item *ngFor="let transaction of transactions">
+  <mat-list-item *ngFor="let transaction of transactions" (click)="onSelectTransaction(transaction)">
     <mat-icon matListItemIcon>account_circle</mat-icon>
     <div matListItemTitle>{{ transaction.descricao }}</div>
     <div matListItemLine>{{ transaction.data | date }}</div>

@@ -10,6 +10,12 @@
   margin: 0 !important;
 }
 
+
+.no-field-spacing .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+
 .list-product{
   flex: 0 0 300px;
   display: flex;
@@ -34,8 +40,4 @@
   margin: 8px auto 8px;
   display: flex;
   justify-content: space-around;
-}
-
-.img-empty-state{
-  max-width: 50%;
 }

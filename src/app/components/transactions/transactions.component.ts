@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { TransactionService } from "../../services/transaction.service";
+import { TransactionState } from "../../services/transaction.state";
+import { Transaction } from 'src/app/models/transaction.interface';
 
 @Component({
   selector: 'app-transactions',
@@ -7,31 +9,19 @@ import { TransactionService } from "../../services/transaction.service";
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent {
-  transactions: any[] = [];
 
-  constructor(private transactionService: TransactionService) { }
+  constructor(
+    private transactionService: TransactionService,
+    private transactionState: TransactionState
+  ) { }
 
   ngOnInit() {
     this.transactionService.getTransactions(0, 10).subscribe(data => {
-      this.transactions = data;
+    this.transactionState.updateTransactions(data);
     });
   }
 
-  addTransaction(transactionData: any) {
-    this.transactionService.addTransaction(transactionData).subscribe(response => {
-      // pass
-    });
-  }
-
-  updateTransaction(ID: number, transactionData: any) {
-    this.transactionService.updateTransaction(ID, transactionData).subscribe(response => {
-      // pass
-    });
-  }
-
-  deleteTransaction(ID: number) {
-    this.transactionService.deleteTransaction(ID).subscribe(response => {
-      // pass
-    });
+  handlerNewTransaction() {
+    this.transactionState.updateSelectedTransaction(null)
   }
 }
