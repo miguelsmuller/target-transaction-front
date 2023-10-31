@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,6 +11,9 @@ import { FooterComponent } from './components/footer/footer.component';
 
 import { MaterialModule } from './components/material.module';
 import { PageHomeModule } from './components/transactions.module';
+
+import { configureLocale } from './config/locale-config';
+configureLocale();
 
 @NgModule({
   declarations: [
@@ -25,7 +29,9 @@ import { PageHomeModule } from './components/transactions.module';
     MaterialModule,
     PageHomeModule
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt' }
+  ],
   bootstrap: [AppComponent],
   exports: []
 })
