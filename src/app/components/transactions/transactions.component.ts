@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup,FormControl } from '@angular/forms';
+
 import { TransactionService } from "../../services/transaction.service";
 import { TransactionState } from "../../services/transaction.state";
 import { Transaction } from 'src/app/models/transaction.interface';
@@ -10,11 +12,22 @@ import { Transaction } from 'src/app/models/transaction.interface';
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent {
+  filterDateRange: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private transactionService: TransactionService,
     private transactionState: TransactionState
-  ) {}
+  ) {
+    const today = new Date();
+    const startDate = new Date(today);
+    startDate.setDate(today.getDate() - 45);
+
+    this.filterDateRange = this.formBuilder.group({
+      start: new FormControl(startDate),
+      end: new FormControl(today)
+    });
+  }
 
   ngOnInit() {
     this.transactionService.getTransactions(0, 10).subscribe(
