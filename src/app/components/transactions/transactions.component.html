@@ -10,12 +10,12 @@
   <div class="filter-product">
     <mat-form-field class="no-field-spacing">
       <mat-label>Filtro de Período</mat-label>
-      <mat-date-range-input [formGroup]="filterDateRange" [rangePicker]="picker">
-        <input matStartDate formControlName="start" placeholder="Início">
-        <input matEndDate formControlName="end" placeholder="Fim">
+      <mat-date-range-input [formGroup]="formFilterDate" [rangePicker]="picker">
+        <input matStartDate formControlName="start" placeholder="Início" (dateChange)="HandlerDateRangeChange()">
+        <input matEndDate formControlName="end" placeholder="Fim" (dateChange)="HandlerDateRangeChange()">
       </mat-date-range-input>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-date-range-picker #picker></mat-date-range-picker >
     </mat-form-field>
   </div>
 
