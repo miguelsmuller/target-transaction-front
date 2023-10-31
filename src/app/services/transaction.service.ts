@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-
+import { Transaction } from "../models/transaction.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -13,24 +13,24 @@ export class TransactionService {
 
   constructor(private http: HttpClient) {}
 
-  addTransaction(transactionData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/Transaction`, transactionData);
+  addTransaction(transactionData: Transaction): Observable<Transaction> {
+    return this.http.post<Transaction>(`${this.apiUrl}/Transaction`, transactionData);
   }
 
-  getTransactions(skip: number, take: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/Transaction?skip=${skip}&take=${take}`);
+  getTransactions(skip: number, take: number): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(`${this.apiUrl}/Transaction?skip=${skip}&take=${take}`);
   }
 
-  getTransactionByID(ID: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/Transaction/${ID}`);
+  getTransactionByID(ID: number): Observable<Transaction> {
+    return this.http.get<Transaction>(`${this.apiUrl}/Transaction/${ID}`);
   }
 
-  updateTransaction(ID: number, transactionData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/Transaction/${ID}`, transactionData);
+  updateTransaction(ID: number, transactionData: Transaction): Observable<Transaction> {
+    return this.http.put<Transaction>(`${this.apiUrl}/Transaction/${ID}`, transactionData);
   }
 
-  updatePartialTransaction(ID: number, patchData: any): Observable<any> {
-    return this.http.patch(`${this.apiUrl}/Transaction/${ID}`, patchData);
+  updatePartialTransaction(ID: number, patchData: Partial<Transaction>): Observable<Transaction> {
+    return this.http.patch<Transaction>(`${this.apiUrl}/Transaction/${ID}`, patchData);
   }
 
   deleteTransaction(ID: number): Observable<any> {

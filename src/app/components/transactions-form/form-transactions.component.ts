@@ -13,6 +13,8 @@ import { TransactionService } from "../../services/transaction.service";
 export class FormTransactionsComponent {
   transactionForm: FormGroup;
   selectedTransaction: Transaction | null = null;
+  isProcess: boolean = false;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -20,7 +22,7 @@ export class FormTransactionsComponent {
     private transactionService: TransactionService
   ) {
     this.transactionForm = this.formBuilder.group({
-      id: [null],
+      id: { value: null, disabled: true },
       descricao: [''],
       data: [null],
       valor: [null],
@@ -30,7 +32,7 @@ export class FormTransactionsComponent {
   }
 
   ngOnInit() {
-    this.transactionState.selectedTransaction$.subscribe(transaction => {
+    this.transactionState.selectedTransaction$.subscribe((transaction: Transaction | null) => {
       this.selectedTransaction = transaction;
       if (this.selectedTransaction === null) {
         this.transactionForm.reset();
@@ -46,28 +48,66 @@ export class FormTransactionsComponent {
         descricao: this.selectedTransaction.descricao,
         data: this.selectedTransaction.data,
         valor: this.selectedTransaction.valor,
-        avulso: this.selectedTransaction.avulso,
-        status: this.selectedTransaction.status,
+        avulso: this.selectedTransaction.avulso || false,
+        status: this.selectedTransaction.status || false,
       });
     }
   }
 
-  // onSubmit(transactionData: any) {
-  //   const formData = this.transactionForm.value;
-  //   this.transactionService.addTransaction(transactionData).subscribe(response => {
-  //     this.transactionAdded.emit(response);
-  //   });
-  // }
+  onSubmit() {
+    const formData: Transaction = this.transactionForm.value;
 
-  // updateTransaction(ID: number, transactionData: any) {
-  //   this.transactionService.updateTransaction(ID, transactionData).subscribe(response => {
-  //     // pass
-  //   });
-  // }
+    if (formData) {
+      formData.avulso = formData.avulso || false;
+      formData.status = formData.status || false;
 
-  // deleteTransaction(ID: number) {
-  //   this.transactionService.deleteTransaction(ID).subscribe(response => {
-  //     // pass
-  //   });
-  // }
+      const transactionID = this.selectedTransaction?.id;
+
+      if (transactionID === undefined) {
+
+        this.transactionService.addTransaction(formData).subscribe(
+          (newTransaction: Transaction) => {
+            this.transactionState.addTransactionToState(newTransaction)
+            this.transactionState.updateSelectedTransaction(newTransaction);
+          },
+          (error) => {
+            this.isProcess = false;
+            console.error('Erro ao adicionar a transação: ', error);
+          }
+        );
+
+      } else {
+        this.transactionService.updateTransaction(transactionID, formData).subscribe(
+          (updatedTransaction: Transaction) => {
+            this.transactionState.updateTransactionInState(updatedTransaction)
+            this.transactionState.updateSelectedTransaction(updatedTransaction);
+          },
+          (error) => {
+            this.isProcess = false;
+            console.error('Erro ao atualizar a transação: ', error);
+          }
+        );
+      }
+    }
+  }
+
+  onDelete() {
+    if (this.selectedTransaction && !this.isProcess) {
+      const transactionID = this.selectedTransaction.id;
+
+      this.isProcess = true;
+
+      this.transactionService.deleteTransaction(transactionID).subscribe(
+        (response) => {
+          this.transactionState.deleteTransactionFromState(transactionID)
+          this.transactionForm.reset();
+          this.isProcess = false;
+        },
+        (error) => {
+          this.isProcess = false;
+          console.error('Erro ao excluir a transação: ', error);
+        }
+      );
+    }
+  }
 }
